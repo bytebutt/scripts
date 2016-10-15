@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if ! command -v mid3v2 >/dev/null 2>&1; then
+    echo "error: missing dependency mid3v2"
+    exit 1
+fi
+
+if [ ! -f "${1}" ]; then
+    echo "error: input file must be a regular file"
+    exit 1
+fi
+
+JUNK_FRAMES="AENC,APIC,ASPI,COMM,COMR,ENCR,EQU2,ETCO,GEOB,GRID,LINK,MCDI,MLLT,OWNE,PRIV,PCNT,POPM,POSS,RBUF,RVA2,RVRB,SEEK,SIGN,SYLT,SYTC,TBPM,TCOM,TCOP,TDEN,TDLY,TDOR,TDRL,TDTG,TENC,TEXT,TFLT,TIPL,TIT3,TKEY,TLAN,TLEN,TMCL,TMED,TMOO,TOAL,TOFN,TOLY,TOPE,TOWN,TPE3,TPE4,TPOS,TPRO,TPUB,TRSN,TRSO,TSOA,TSOP,TSOT,TSRC,TSSE,TSST,TXXX,UFID,USER,USLT,WCOM,WCOP,WOAF,WOAR,WOAS,WORS,WPAY,WPUB,WXXX"
+
+mid3v2 --delete-frames="${JUNK_FRAMES}" "${1}"

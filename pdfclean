@@ -1,0 +1,28 @@
+#!/bin/bash
+
+TARGET_DPI="300"
+
+if [ -z "${1}" ]; then
+    echo "Must give an input filename"
+    exit 1
+elif [ -z "${2}" ]; then
+    echo "Must give an output filename"
+    exit 1
+fi
+
+# mv "${1}" "${1}.orig"
+
+gs \
+    -dDownsampleColorImages=true \
+    -dDownsampleGrayImages=true \
+    -dDownsampleMonoImages=true \
+    -dColorImageResolution="${TARGET_DPI}" \
+    -dGrayImageResolution="${TARGET_DPI}" \
+    -dMonoImageResolution="${TARGET_DPI}" \
+    -dPDFSETTINGS='/printer' \
+    -dBATCH \
+    -dNOPAUSE \
+    -q \
+    -sDEVICE=pdfwrite \
+    -sOutputFile="${2}" \
+    "${1}"

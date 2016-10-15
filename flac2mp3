@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Functions ###################################################################
+function convert_files() {
+    for file in *.flac; do
+        ffmpeg -i "${file}" -qscale:a 0 "${file/%flac/mp3}"
+    done
+}
+
+# Main Flow ###################################################################
+echo -n "Create MP3 V0 versions of FLAC files in current directory? (y/n) "
+
+read response
+
+case "${response}" in
+    y|Y )
+        convert_files
+        ;;
+    * )
+        echo "Nothing was converted"
+        exit 0
+        ;;
+esac
